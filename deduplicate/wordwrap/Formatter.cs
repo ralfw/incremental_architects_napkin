@@ -1,36 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace wordwrap
 {
     public class Formatter
     {
-        public string WordWrap(string text, int maxLineLength)
-        {
+        public string WordWrap(string text, int maxLineLength) {
             var words = Extract_words(text);
+            words = Split_long_words(words, maxLineLength);
             var lines = Reformat(words, maxLineLength);
             return Assemble_text(lines);
         }
 
-        private string[] Extract_words(string text)
-        {
-            return text.Split(new[] {' '}, 
-                              StringSplitOptions.RemoveEmptyEntries);
+        private IEnumerable<string> Split_long_words( IEnumerable<string> words, int maxLineLength) {
+            foreach (var w in words) {
+                var word = w;
+                while (word.Length > maxLineLength) {
+                    var head = word.Substring(0, maxLineLength);
+                    yield return head;
+                    word = word.Substring(maxLineLength);
+                }
+                if (word != "") yield return word;
+            }
         }
 
-        private string[] Reformat(string[] words, int maxLineLength)
-        {
+        private IEnumerable<string> Extract_words(string text) {
+            return text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        private string[] Reformat(IEnumerable<string> words, int maxLineLength) {
             var wordlist = new List<string>(words);
             var lines = new List<string>();
             var line = "";
-            while (wordlist.Count > 0)
-            {
-                var newLineLen = line.Length + wordlist[0].Length + ((line.Length > 0) ? 1 : 0);
+            while (wordlist.Count > 0) {
+                var newLineLen = line.Length + 
+                                 wordlist[0].Length + 
+                                 ((line.Length > 0) ? 1 : 0);
                 if (newLineLen <= maxLineLength)
-                    line += ((line.Length > 0) ? " " : "") + wordlist[0];
+                    line += ((line.Length > 0) ? " " : "") + 
+                            wordlist[0];
                 else {
                     lines.Add(line);
                     line = wordlist[0];
@@ -42,8 +50,7 @@ namespace wordwrap
             return lines.ToArray();
         }
 
-        private string Assemble_text(string[] lines)
-        {
+        private string Assemble_text(string[] lines) {
             return string.Join("\n", lines);
         }
     }
