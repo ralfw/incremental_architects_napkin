@@ -10,7 +10,7 @@ namespace wordwrap
         public void Acceptance()
         {
             var sut = new Formatter();
-            var result = sut.WordWrap("the quick brown fox jumps over the lazy dog", 4);
+            var result = sut.WordWrap("the quick brown fox jumps over the lazy dog", 8);
             Console.WriteLine(result);
         }
     }

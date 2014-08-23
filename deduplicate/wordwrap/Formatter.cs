@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace wordwrap
 {
@@ -29,25 +30,24 @@ namespace wordwrap
         }
 
         private string[] Reformat(IEnumerable<string> words, int maxLineLength) {
-            var wordlist = new List<string>(words);
-            var lines = new List<string>();
-            var line = "";
-            while (wordlist.Count > 0) {
-                var newLineLen = line.Length + 
-                                 wordlist[0].Length + 
-                                 ((line.Length > 0) ? 1 : 0);
-                if (newLineLen <= maxLineLength)
-                    line += ((line.Length > 0) ? " " : "") + 
-                            wordlist[0];
-                else {
-                    lines.Add(line);
-                    line = wordlist[0];
-                }
-                wordlist.RemoveAt(0);
-            }
-            if (line != "") lines.Add(line);
+            return Reformat(new List<string>(words), maxLineLength, "", new List<string>());
+        }
 
-            return lines.ToArray();
+        private string[] Reformat(List<string> words, int maxLineLength, string line, List<string> lines) {
+            if (!words.Any()) {
+                if (line != "") lines.Add(line);
+                return lines.ToArray();
+            }
+
+            line += (line != "") ? " " : "";
+            var word = words[0];
+            words.RemoveAt(0);
+
+            if ((line.Length + word.Length) <= maxLineLength)
+                return Reformat(words, maxLineLength, line + word, lines);
+
+            lines.Add(line.Trim());
+            return Reformat(words, maxLineLength, word, lines);
         }
 
         private string Assemble_text(string[] lines) {
