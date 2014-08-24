@@ -34,20 +34,20 @@ namespace deduplicate.console
             return input.Split(',').Select(s => s.Trim()).ToArray();
         }
 
-        private static Dictionary<string,object> 
-                Compile_unique_strings(string[] strings)
+        private static HashSet<string> 
+                       Compile_unique_strings(string[] strings)
         {
             return strings.Aggregate(
-                    new Dictionary<string, object>(),
-                    (agg, s) => { 
-                        agg[s] = null;
+                    new HashSet<string>(),
+                    (agg, s) => {
+                        agg.Add(s);
                         return agg;
                     });
         }
 
-        private static string[] Serialize_unique_strings(Dictionary<string,object> dict)
+        private static string[] Serialize_unique_strings(HashSet<string> set)
         {
-            return dict.Keys.ToArray();
+            return set.ToArray();
         }
 
 
