@@ -10,24 +10,28 @@ namespace deduplicate.console
     {
         static void Main(string[] args)
         {
-            Validate_command_line(args, validatedArgs => {
-                var input = Accept_string_list(validatedArgs);
-                var output = Deduplicate(input);
-                Present_deduplicated_string_list(output);
-            });
+            Validate_command_line(args, 
+                validatedArgs => {
+                    var input = Accept_string_list(validatedArgs);
+                    var output = Deduplicate(input);
+                    Present_deduplicated_string_list(output); 
+                },
+                Present_error_message);
         }
 
         private static void Validate_command_line(
                             string[] args, 
-                            Action<string[]> onValidCommandline)
-        {
-            if (args.Length != 1) {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Usage: deduplicate 'comma separated, list, of strings'");
-                return;
-            }
+                            Action<string[]> onValidity,
+                            Action onInvalidity) {
+            if (args.Length == 1) onValidity(args);
+            else                  onInvalidity();
+        }
 
-            onValidCommandline(args);
+        private static void Present_error_message()
+        {
+            var fc = Console.ForegroundColor; Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Usage: deduplicate \"comma separated, list, of strings\"");
+            Console.ForegroundColor = fc;
         }
 
 
