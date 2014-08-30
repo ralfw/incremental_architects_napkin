@@ -21,21 +21,23 @@ namespace csvformatting
 		}
 
 		int[] Determine_col_widths(string[][] csvRecords) {
-			return csvRecords.First ().Select (c => c.Length).ToArray ();
+			var colWidths = new int[csvRecords.First ().Length];
+			for (var iCol = 0; iCol < colWidths.Length; iCol++)
+				colWidths [iCol] = csvRecords.Max (r => r [iCol].Length);
+			return colWidths;
 		}
 
 		string[] Format_records(string[][] csvRecords, int[] colWidths) {
-			return csvRecords.Select (r => string.Join ("|", r)).ToArray ();
+			return csvRecords.Select (r => string.Join ("|", r.Select((v, i) => v.PadRight(colWidths[i]))))
+					         .ToArray ();
 		}
 
 		string Format_separator(int[] colWidths) {
-			return "---+---";
+			return string.Join ("+", colWidths.Select (w => new string ('-', w)));
 		}
 
 		string Build_table(string[] formattedRecords, string separator) {
-			return string.Join ("\n",
-				new string[0].Concat (new[]{ formattedRecords [0], separator })
-							 .Concat(formattedRecords.Skip (1)));
+			return string.Join ("\n", new[]{ formattedRecords [0], separator }.Concat(formattedRecords.Skip (1)));
 		}
 	}
 }
