@@ -1,0 +1,6 @@
+﻿Name;Age;City
+Peter;26;Hamburg
+Paul;45;London
+Mary;38;Copenhagen
+Ben;45;New York
+Luisa;21;Oslo

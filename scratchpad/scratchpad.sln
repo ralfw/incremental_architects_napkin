@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fizzbuzz", "fizzbuzz\fizzbu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csvformatting", "csvformatting\csvformatting.csproj", "{2E06E278-B10C-48EA-B1E1-7F42CB1708E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csvviewer", "csvviewer\csvviewer.csproj", "{63693AFD-62F1-4ADC-A383-28718AC0EBA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,9 +33,13 @@ Global
 		{61B01000-B1CE-4297-BC94-A591563BE0FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61B01000-B1CE-4297-BC94-A591563BE0FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61B01000-B1CE-4297-BC94-A591563BE0FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63693AFD-62F1-4ADC-A383-28718AC0EBA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63693AFD-62F1-4ADC-A383-28718AC0EBA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63693AFD-62F1-4ADC-A383-28718AC0EBA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63693AFD-62F1-4ADC-A383-28718AC0EBA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = deduplicate.console\deduplicate.console.csproj
+		StartupItem = csvviewer\csvviewer.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
