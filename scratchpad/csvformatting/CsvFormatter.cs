@@ -6,15 +6,22 @@ namespace csvformatting
 	public class CsvFormatter
 	{
 		public string Format(string csvText) {
+			var analysisResult = Analyze (csvText);
+			return Format_as_ASCII_table (analysisResult);
+		}
+			
+		dynamic Analyze(string csvText) {
 			var csvRecords = Parse (csvText);
 			var colWidths = Determine_col_widths (csvRecords);
-
-			var formattedRecords = Format_records (csvRecords, colWidths);
-			var separator = Format_separator (colWidths);
-
+			return new { Records = csvRecords, ColWidths = colWidths };
+		}
+			
+		string Format_as_ASCII_table(dynamic analysisResult) {
+			var formattedRecords = Format_records (analysisResult.Records, analysisResult.ColWidths);
+			var separator = Format_separator (analysisResult.ColWidths);
 			return Build_table (formattedRecords, separator);
 		}
-
+			
 		string[][] Parse(string csvText) {
 			var csvLines = csvText.Split('\n');
 			return csvLines.Select (l => l.Split (';')).ToArray ();
