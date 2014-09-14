@@ -1,8 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="csvviewer/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="nounextractor/Program.cs">
     <Files>
       <File FileName="csvviewer/Program.cs" Line="4" Column="4" />
+      <File FileName="nounextractor/Program.cs" Line="62" Column="62" />
+      <File FileName="nounextractor/source.txt" Line="32" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
