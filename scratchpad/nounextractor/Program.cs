@@ -8,25 +8,32 @@ namespace nounextractor
 	{
 		public static void Main (string[] args)
 		{
-			var text = Read_source_file (args [0]);
-			var words = Split_text_into_words (text);
-			words = Detect_nouns (words);
-			Write_words (args [1], words);
-		}
+			var domain = new Domain ();
+			var adapter = new Textfileadapter ();
 
-		static string Read_source_file(string filename) {
-			return File.ReadAllText (filename);
+			var text = adapter.Read_source_file (args [0]);
+			var words = domain.Split_text_into_words (text);
+			words = domain.Detect_nouns (words);
+			adapter.Write_words (args [1], words);
 		}
+	}
 
-		static string[] Split_text_into_words(string text) {
+	class Domain {
+		public string[] Split_text_into_words(string text) {
 			return text.Split (new[]{ ' ', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 		}
 
-		static string[] Detect_nouns(string[] words) {
+		public string[] Detect_nouns(string[] words) {
 			return words.Where (w => char.IsUpper (w [0])).ToArray ();
 		}
+	}
 
-		static void Write_words(string filename, string[] words) {
+	class Textfileadapter {
+		public string Read_source_file(string filename) {
+			return File.ReadAllText (filename);
+		}
+	
+		public void Write_words(string filename, string[] words) {
 			File.WriteAllLines (filename, words);
 		}
 	}
